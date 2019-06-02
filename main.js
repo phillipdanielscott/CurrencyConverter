@@ -12,7 +12,7 @@
 **************************************************************************************/
 
 window.onload = function() {
-  const inputValue =  document.getElementById('inputValue');
+  // const inputValue =  document.getElementById('inputValue');
   const selectCurrenciesDiv  =  document.getElementById('selectCurrencies');
   const loading = document.getElementById('loading');
   const selectCurrencies = document.getElementById('currencies');
@@ -22,9 +22,10 @@ window.onload = function() {
   // create varible  for  card  contents from result  div
 
   selectCurrencies.addEventListener('change', onSelect)
-  input.addEventListener('keyup', onInput);
-  submitButton.addEventListener('click', buttonClick);
+  // input.addEventListener('keyup', onInput);
+  // submitButton.addEventListener('click', buttonClick);
 
+  // deleteBtn.addEventListener('click', deleteMethod );
   loading.style.display  = 'none';
   //  resultsDiv.style.display  = 'none';
   //  hide  the  results  div
@@ -38,9 +39,17 @@ window.onload = function() {
     http.onload = ajaxCallback
   }
 
-  function onInput(e) {
-    inputValue.innerHTML = e.target.value;
-  }
+
+  input.addEventListener("keydown", function (e) {
+      if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+          console.log("Enter is being pressed");
+          buttonClick();
+      }
+  });
+
+
+
+
 
   function onSelect(e) {
     const [currency, rate]= e.target.value.split('-');
@@ -48,12 +57,26 @@ window.onload = function() {
     /// calculate the rate  by multipleyingthe input.value  by rate
     const finalResult = input.value * rate;
     //  add  the a new div
-    resultsDiv.innerHTML += `<div class="card w-100">${currency} sample card ${rate} result: ${finalResult}</div>`;
+    // ${rate} result:
+
+    // const currencyCardClass = currency + "card";
+    resultsDiv.innerHTML += `<div class="card w-100" id="currency-card">
+    <div class="row no-gutters">
+    <div class="col-md-11 card-info">
+    <p class="currency">${currency}</p>
+    <p class="final-rate">${finalResult}</p>
+    <p>1 USD = ${currency} ${rate}</p>
+    </div>
+    <div class="col-md-1">
+      <button id="delete-btn" onclick="deleteCard()">(-)</button>
+    </div>
+    </div>
+    </div>`;
 
   }
 
-  function buttonClick() {
 
+  function buttonClick() {
     selectCurrenciesDiv.style.display = 'none';
     //  hide the  resultDIv
     loading.style.display = 'block';
@@ -62,7 +85,8 @@ window.onload = function() {
       baseUrl: "https://api.exchangeratesapi.io/latest",
       queryString:  `BASE=USD`,
       ajaxCallback: ajaxCallback
-    })
+    });
+    const name = Object.keys(rates);
   }
 
   function ajaxCallback(res) {

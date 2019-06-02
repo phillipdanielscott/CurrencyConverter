@@ -1,0 +1,89 @@
+/* Body styling */
+body {
+ font-family: 'Open Sans', sans-serif;
+}
+
+.card {
+ border: 2px solid black;
+ border-radius: 0px;
+ margin-bottom: 20px;
+}
+
+.hide {
+ display: none;
+}
+
+.currency-wrapper {
+ border: 2px solid black;
+}
+
+.top-container span {
+ font-size: 14px;
+ font-style: italic;
+ font-weight: 600;
+}
+
+input[type=text] {
+ border: none;
+ background-color: none;
+ outline: 0;
+ font-size: 18px;
+ width: 300px;
+ height: 30px;
+ text-align: right;
+ font-weight: 600;
+ width: 100%;
+ float: left;
+}
+
+/* input[type=text]:focus {
+ border: none;
+ background-color: none;
+ outline: 0;
+ width: 300px;
+ height: 30px;
+} */
+.input-group {
+ border-bottom: 2px solid black;
+}
+
+.user-input,
+.hard-coded-currency {
+ width: 50%;
+ float: left;
+}
+
+.final-rate,
+.currency {
+ width: 50%;
+ float: left;
+}
+
+.final-rate {
+ text-align: right;
+}
+
+#delete-btn {
+ width: 100%;
+ height: 100%;
+ background-color: transparent;
+ border: none;
+ border-left: 2px solid black;
+}
+
+.results-container {
+ height: auto;
+}
+
+#currency-card p {
+ margin-bottom: 0px;
+}
+
+#currency-card p:nth-child(3) {
+ font-style: italic;
+ font-size: 13px;
+}
+
+.card-info {
+ padding: 10px !important;
+}
