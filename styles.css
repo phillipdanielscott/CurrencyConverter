@@ -1,4 +1,8 @@
-/* Body styling */
+/********************
+
+    Body styling
+
+********************/
 body {
  font-family: 'Open Sans', sans-serif;
 }
@@ -13,6 +17,11 @@ body {
  display: none;
 }
 
+/********************
+
+    Currency Box
+
+********************/
 .currency-wrapper {
  border: 2px solid black;
 }
@@ -23,7 +32,12 @@ body {
  font-weight: 600;
 }
 
-input[type=text] {
+/********************
+
+       Input
+
+********************/
+input[type=number] {
  border: none;
  background-color: none;
  outline: 0;
@@ -75,8 +89,18 @@ input[type=text] {
  height: auto;
 }
 
+/********************
+
+   Currency  Card
+
+********************/
 #currency-card p {
  margin-bottom: 0px;
+}
+
+#currency-card p:nth-child(1),
+#currency-card p:nth-child(2) {
+ font-size: 20px;
 }
 
 #currency-card p:nth-child(3) {

@@ -9,7 +9,7 @@
     5. From Users input do math to see what users rates would be with currencies.
     6. Display currencies with ability to delete.
 
-**************************************************************************************/
+***************************************************************************************/
 
 window.onload = function() {
   // const inputValue =  document.getElementById('inputValue');
@@ -27,29 +27,29 @@ window.onload = function() {
 
   // deleteBtn.addEventListener('click', deleteMethod );
   loading.style.display  = 'none';
-  //  resultsDiv.style.display  = 'none';
+  resultsDiv.style.display  = 'none';
   //  hide  the  results  div
 
-  function ajaxCall({ type, baseUrl, queryString, ajaxCallback  }) {
+  function ajaxCall({ type, baseUrl, ajaxCallback  }) {
     const http = new XMLHttpRequest();
     // const query = Object.values(queryString)
-    const url = `${baseUrl}?queryString`;
+    const url = `${baseUrl}`;
     http.open(type, url, true);
     http.send()
     http.onload = ajaxCallback
   }
 
-
   input.addEventListener("keydown", function (e) {
       if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
           console.log("Enter is being pressed");
-          buttonClick();
+          if(input === NaN){
+            console.log("I am wrong");
+          }else{
+            buttonClick();
+          }
+
       }
   });
-
-
-
-
 
   function onSelect(e) {
     const [currency, rate]= e.target.value.split('-');
@@ -73,8 +73,8 @@ window.onload = function() {
     </div>
     </div>`;
 
+   resultsDiv.style.display  = 'unset';
   }
-
 
   function buttonClick() {
     selectCurrenciesDiv.style.display = 'none';
@@ -82,8 +82,8 @@ window.onload = function() {
     loading.style.display = 'block';
     return ajaxCall({
       type: 'GET',
-      baseUrl: "https://api.exchangeratesapi.io/latest",
-      queryString:  `BASE=USD`,
+      baseUrl: "https://api.exchangeratesapi.io/latest?base=USD&symbols=USD,GBP,USD,CAD,IDR,GBP,CHF,SGD,INR,MYR,JPY,KRW",
+      // queryString:  `Base=USD`,
       ajaxCallback: ajaxCallback
     });
     const name = Object.keys(rates);
@@ -91,6 +91,7 @@ window.onload = function() {
 
   function ajaxCallback(res) {
     const result = JSON.parse(res.currentTarget.response);
+    console.log(result);
     selectCurrenciesDiv.style.display = 'block';
     //  show  the results div
     selectCurrencies.innerHTML = makeOptions(result.rates);
