@@ -26,7 +26,7 @@
             <span style="font-weight:800; width:50%; float:left;">USD</span>
           </div>
           <div class="user-input">
-            <input type="number" id="user-value" class="center user-value" placeholder="Enter amount" />
+            <input type="number" id="user-value" class="center user-value" placeholder="Enter amount" value="1" />
           </div>
         </div>
 
@@ -47,13 +47,9 @@
       </div>
     </div>
     <script type="text/javascript">
-      function deleteCard() {
-        const currencyCard = document.getElementById("currency-card");
-        for (i = 0; i <= currencyCard.length; i++) {
-          // document.getElementById('n' + i).innerHTML = values[i];
-          currencyCard.classList.add("hide");
-        }
-
+      function deleteCard(elem) {
+        const currencyCard = document.getElementById('currency-card');
+        elem.parentElement.classList.add("hide");
       }
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

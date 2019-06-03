@@ -41,12 +41,8 @@ window.onload = function() {
 
   input.addEventListener("keydown", function (e) {
       if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
-          console.log("Enter is being pressed");
-          if(input === NaN){
-            console.log("I am wrong");
-          }else{
+
             buttonClick();
-          }
 
       }
   });
@@ -60,17 +56,14 @@ window.onload = function() {
     // ${rate} result:
 
     // const currencyCardClass = currency + "card";
-    resultsDiv.innerHTML += `<div class="card w-100" id="currency-card">
-    <div class="row no-gutters">
+    resultsDiv.innerHTML += `
+    <div class="row no-gutters card" id="currency-card">
     <div class="col-md-11 card-info">
     <p class="currency">${currency}</p>
     <p class="final-rate">${finalResult}</p>
     <p>1 USD = ${currency} ${rate}</p>
     </div>
-    <div class="col-md-1">
-      <button id="delete-btn" onclick="deleteCard()">(-)</button>
-    </div>
-    </div>
+    <button id="delete-btn" onclick="deleteCard(this)">(-)</button>
     </div>`;
 
    resultsDiv.style.display  = 'unset';
