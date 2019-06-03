@@ -114,3 +114,24 @@ input[type=number] {
 .card-info {
  padding: 10px !important;
 }
+
+/********************
+
+Custom Currency Input
+
+********************/
+.custom-currency-wrapper {
+ border: 2px solid black;
+ /* padding: 10px; */
+ margin: 0px 5px;
+}
+
+.custom-currency-wrapper p {
+ margin-bottom: 0px;
+ padding: 5px;
+}
+
+input[type=text] {
+ width: 100%;
+ outline: 0;
+}

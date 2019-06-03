@@ -12,6 +12,7 @@
 ***************************************************************************************/
 
 window.onload = function() {
+  console.log("Hello, Anatta!");
   // const inputValue =  document.getElementById('inputValue');
   const selectCurrenciesDiv  =  document.getElementById('selectCurrencies');
   const loading = document.getElementById('loading');
@@ -27,8 +28,8 @@ window.onload = function() {
 
   // deleteBtn.addEventListener('click', deleteMethod );
   loading.style.display  = 'none';
+    //  hide  the  results  div
   resultsDiv.style.display  = 'none';
-  //  hide  the  results  div
 
   function ajaxCall({ type, baseUrl, ajaxCallback  }) {
     const http = new XMLHttpRequest();
@@ -50,7 +51,7 @@ window.onload = function() {
   function onSelect(e) {
     const [currency, rate]= e.target.value.split('-');
     //  on select Currency
-    /// calculate the rate  by multipleyingthe input.value  by rate
+    /// calculate the rate  by multiplying the input.value  by rate
     const finalResult = input.value * rate;
     //  add  the a new div
     // ${rate} result:
@@ -96,5 +97,113 @@ window.onload = function() {
       rate => `<option value="${rate}-${rates[rate]}">${rate}</option>`
     ).join('')
   }
+
+  /**************************************************
+
+
+            When User makes custom Search
+
+
+
+  *****************************************************/
+
+  const customCurrencyInput = document.getElementById('custom-currency');
+  const addCurrencyButton = document.getElementById('add-currency-button');
+
+   // Show custom search when button is clicked
+  addCurrencyButton.addEventListener('click', showCustomSearch );
+
+  function showCustomSearch(){
+    customCurrencyInput.classList.remove("hide");
+    addCurrencyButton.classList.add("hide");
+  }
+
+  // Making custom ajax call upon users input
+  function CustomAjax({ type, baseUrl, ajaxCallback  }) {
+    const http = new XMLHttpRequest();
+    // const query = Object.values(queryString)
+    const url = `${baseUrl}`;
+    http.open(type, url, true);
+    http.send()
+    http.onload = ajaxCallback;
+  }
+
+  // Check to see if user pressed enter on custom search
+  customCurrencyInput.addEventListener("keydown", function (e) {
+      if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+            UserCustomData();
+      }
+  });
+
+
+  function UserCustomData() {
+      console.log("User custom data success");
+    selectCurrenciesDiv.style.display = 'none';
+    //  hide the  resultDIv
+    loading.style.display = 'block';
+    return ajaxCall({
+      type: 'GET',
+      baseUrl: "https://api.exchangeratesapi.io/latest?base=USD&symbols=" + customCurrencyInput.value,
+      // queryString:  `Base=USD`,
+      ajaxCallback: customFilter
+    });
+  }
+
+  function customFilter(res) {
+    const result = JSON.parse(res.currentTarget.response);
+    console.log(Object.keys(result));
+
+    selectCurrenciesDiv.style.display = 'block';
+    //  show  the results div
+    selectCurrencies.innerHTML = makeOptions(result.rates);
+    loading.style.display = 'none';
+    SuccessDataPull();
+  }
+
+  function SuccessDataPull(e) {
+    const [currency, rate]= selectCurrencies.value.split('-');
+   //  const [currency, rate]= e.target.value.split('-');
+   //  //  on select Currency
+   //  /// calculate the rate  by multiplying the input.value  by rate
+   //  const finalResult = input.value * rate;
+   //  //  add  the a new div
+   //  // ${rate} result:
+   //
+   //  // const currencyCardClass = currency + "card";
+   //  resultsDiv.innerHTML += `
+   //  <div class="row no-gutters card" id="currency-card">
+   //  <div class="col-md-11 card-info">
+   //  <p class="currency">${currency}</p>
+   //  <p class="final-rate">${finalResult}</p>
+   //  <p>1 USD = ${currency} ${rate}</p>
+   //  </div>
+   //  <button id="delete-btn" onclick="deleteCard(this)">(-)</button>
+   //  </div>`;
+   //
+   // resultsDiv.style.display  = 'unset';
+
+
+   //  on select Currency
+   /// calculate the rate  by multiplying the input.value  by rate
+   const finalResult = input.value * rate;
+   //  add  the a new div
+   // ${rate} result:
+
+   // const currencyCardClass = currency + "card";
+   resultsDiv.innerHTML += `
+   <div class="row no-gutters card" id="currency-card">
+   <div class="col-md-11 card-info">
+   <p class="currency">${currency}</p>
+   <p class="final-rate">${finalResult}</p>
+   <p>1 USD = ${currency} ${rate}</p>
+   </div>
+   <button id="delete-btn" onclick="deleteCard(this)">(-)</button>
+   </div>`;
+
+  resultsDiv.style.display  = 'unset';
+
+  }
+
+
 
 }
